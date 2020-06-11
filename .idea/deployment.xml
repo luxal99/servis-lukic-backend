@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="ServisLukic">
+    <serverData>
+      <paths name="ServisLukic">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/servislukic_backend" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
