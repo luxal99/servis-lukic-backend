@@ -19,7 +19,7 @@ export class PostService {
         ];
 
         try {
-            this.connection.query(sql, [values], (err, data, fields) => {
+            this.connection.query(sql, [values], () => {
             })
         } catch (e) {
             throw new Error(e)
