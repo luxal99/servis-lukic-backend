@@ -36,23 +36,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var bodyParser = require("body-parser");
-var cors = require("cors");
-var DatabaseConfig_1 = require("./database/DatabaseConfig");
-var PostController_1 = require("./controllers/PostController");
-var AuthController_1 = require("./controllers/AuthController");
-var app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
-    var connection;
-    return __generator(this, function (_a) {
-        connection = new DatabaseConfig_1.DatabaseConfig().getConnection().connect();
-        new PostController_1.PostController(app);
-        new AuthController_1.AuthController(app);
-        console.log("Listen on PORT " + process.env.PORT + ",and connected to DB " + process.env.DB_NAME);
-        return [2 /*return*/];
-    });
-}); });
-//# sourceMappingURL=app.js.map
+var DatabaseConfig_1 = require("../database/DatabaseConfig");
+var bcrypt = require("bcrypt");
+var rxjs_1 = require("rxjs");
+var AuthService = /** @class */ (function () {
+    function AuthService() {
+        this.connection = new DatabaseConfig_1.DatabaseConfig().getConnection();
+    }
+    AuthService.prototype.auth = function (user) {
+        var _this = this;
+        return new rxjs_1.Observable(function (subscriber) {
+            var sql = "select * from user where username ='" + user.username + "'";
+            _this.connection.query(sql, function (err, result) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(result.length > 0)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, bcrypt.compare(user.password, result[0].password)];
+                        case 1:
+                            if (_a.sent()) {
+                                subscriber.next(result[0]);
+                                subscriber.complete();
+                            }
+                            else {
+                                subscriber.next(null);
+                            }
+                            return [3 /*break*/, 3];
+                        case 2:
+                            subscriber.next(null);
+                            _a.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); });
+        });
+    };
+    return AuthService;
+}());
+exports.AuthService = AuthService;
+//# sourceMappingURL=AuthService.js.map

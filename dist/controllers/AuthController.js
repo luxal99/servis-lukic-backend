@@ -36,23 +36,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var bodyParser = require("body-parser");
-var cors = require("cors");
-var DatabaseConfig_1 = require("./database/DatabaseConfig");
-var PostController_1 = require("./controllers/PostController");
-var AuthController_1 = require("./controllers/AuthController");
-var app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
-    var connection;
-    return __generator(this, function (_a) {
-        connection = new DatabaseConfig_1.DatabaseConfig().getConnection().connect();
-        new PostController_1.PostController(app);
-        new AuthController_1.AuthController(app);
-        console.log("Listen on PORT " + process.env.PORT + ",and connected to DB " + process.env.DB_NAME);
-        return [2 /*return*/];
-    });
-}); });
-//# sourceMappingURL=app.js.map
+var const_1 = require("../const/const");
+var AuthService_1 = require("../service/AuthService");
+var jwt = require("jsonwebtoken");
+var AuthController = /** @class */ (function () {
+    function AuthController(app) {
+        this.app = app;
+        this.routes();
+    }
+    AuthController.prototype.routes = function () {
+        var _this = this;
+        this.app.post(const_1.AUTH_ROUTE, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                try {
+                    new AuthService_1.AuthService().auth(req.body).subscribe(function (user) {
+                        if (user) {
+                            var token = jwt.sign({ id: user.id, username: user.username }, process.env.TOKEN_SECRET);
+                            res.header(const_1.TOKEN_NAME, token).send({ token: token });
+                        }
+                        else {
+                            res.sendStatus(const_1.HTTP_STATUS_FORBIDDEN);
+                        }
+                    });
+                }
+                catch (e) {
+                    res.status(const_1.HTTP_STATUS_BAD_GATEWAY).send(e);
+                }
+                return [2 /*return*/];
+            });
+        }); });
+    };
+    return AuthController;
+}());
+exports.AuthController = AuthController;
+//# sourceMappingURL=AuthController.js.map

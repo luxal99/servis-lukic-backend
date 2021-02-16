@@ -51,9 +51,8 @@ var PostService = /** @class */ (function () {
                     post.description,
                     post.image
                 ];
-                console.log(values);
                 try {
-                    this.connection.query(sql, [values], function (err, data, fields) {
+                    this.connection.query(sql, [values], function () {
                     });
                 }
                 catch (e) {

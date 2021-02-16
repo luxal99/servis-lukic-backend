@@ -1,15 +1,16 @@
 import {Express, Request, Response} from "express";
 import {POST_ROUTE} from "../const/const";
 import {PostService} from "../service/PostService";
+const verify = require("../middleware/verify.middle")
 
 export class PostController {
 
-    constructor(private app: any,private connection) {
+    constructor(private app: any) {
         this.routes();
     }
 
     routes() {
-        this.app.post(POST_ROUTE, async (req: Request, res: Response) => {
+        this.app.post(POST_ROUTE, verify, (req: Request, res: Response) => {
             try {
                 new PostService().save({
                     title: req.body.title,
