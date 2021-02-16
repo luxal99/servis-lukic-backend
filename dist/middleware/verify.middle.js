@@ -11,6 +11,7 @@ module.exports = function verify(req, res, next) {
         next();
     }
     catch (e) {
+        res.status(const_1.HTTP_STATUS_FORBIDDEN).send({ message: const_1.DENIED_MESSAGE });
     }
 };
 //# sourceMappingURL=verify.middle.js.map

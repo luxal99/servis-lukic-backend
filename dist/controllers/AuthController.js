@@ -51,7 +51,10 @@ var AuthController = /** @class */ (function () {
                 try {
                     new AuthService_1.AuthService().auth(req.body).subscribe(function (user) {
                         if (user) {
-                            var token = jwt.sign({ id: user.id, username: user.username }, process.env.TOKEN_SECRET);
+                            var token = jwt.sign({
+                                id: user.id,
+                                username: user.username
+                            }, process.env.TOKEN_SECRET, { expiresIn: '2h' });
                             res.header(const_1.TOKEN_NAME, token).send({ token: token });
                         }
                         else {

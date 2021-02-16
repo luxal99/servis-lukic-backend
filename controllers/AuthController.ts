@@ -15,7 +15,10 @@ export class AuthController {
             try {
                 new AuthService().auth(req.body).subscribe((user) => {
                     if (user) {
-                        const token = jwt.sign({id: user.id, username: user.username}, process.env.TOKEN_SECRET)
+                        const token = jwt.sign({
+                            id: user.id,
+                            username: user.username
+                        }, process.env.TOKEN_SECRET, {expiresIn: '2h'})
                         res.header(TOKEN_NAME, token).send({token});
 
                     } else {

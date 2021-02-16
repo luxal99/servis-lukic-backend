@@ -10,6 +10,6 @@ module.exports = function verify(req, res, next) {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         next();
     } catch (e) {
-
+        res.status(HTTP_STATUS_FORBIDDEN).send({message: DENIED_MESSAGE})
     }
 }
