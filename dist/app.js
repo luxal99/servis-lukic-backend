@@ -36,12 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require("cors");
 var DatabaseConfig_1 = require("./database/DatabaseConfig");
 var PostController_1 = require("./controllers/PostController");
 var AuthController_1 = require("./controllers/AuthController");
+var express = require("express");
 var app = express();
 app.use(cors());
 app.use(bodyParser.json());

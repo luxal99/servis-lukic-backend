@@ -1,6 +1,5 @@
 import * as jwt from "jsonwebtoken"
 import {DENIED_MESSAGE, HTTP_STATUS_FORBIDDEN, TOKEN_NAME} from "../const/const";
-import * as dotenv from "dotenv";
 
 module.exports = function verify(req, res, next) {
     const token = req.header(TOKEN_NAME);

@@ -1,5 +1,5 @@
 import * as mysql from "mysql";
-import * as dotenv from "dotenv";
+
 export class DatabaseConfig {
     getConnection() {
         return mysql.createConnection({

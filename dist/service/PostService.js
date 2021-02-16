@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var DatabaseConfig_1 = require("../database/DatabaseConfig");
+var rxjs_1 = require("rxjs");
 var PostService = /** @class */ (function () {
     function PostService() {
         this.connection = new DatabaseConfig_1.DatabaseConfig().getConnection();
@@ -47,13 +48,30 @@ var PostService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 sql = "delete from post where id = " + id;
                 try {
-                    this.connection.query(sql, function () { });
+                    this.connection.query(sql, function () {
+                    });
                 }
                 catch (e) {
                     throw new Error(e);
                 }
                 return [2 /*return*/];
             });
+        });
+    };
+    PostService.prototype.get = function () {
+        var _this = this;
+        return new rxjs_1.Observable(function (subscriber) {
+            var sql = 'select * from post';
+            try {
+                _this.connection.query(sql, function (err, result) {
+                    if (err)
+                        throw new Error(err);
+                    subscriber.next(result);
+                });
+            }
+            catch (e) {
+                throw new Error(e);
+            }
         });
     };
     PostService.prototype.save = function (post) {
@@ -68,6 +86,22 @@ var PostService = /** @class */ (function () {
                 ];
                 try {
                     this.connection.query(sql, [values], function () {
+                    });
+                }
+                catch (e) {
+                    throw new Error(e);
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    PostService.prototype.update = function (post) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql;
+            return __generator(this, function (_a) {
+                sql = "update post set title = '" + post.title + "', description = '" + post.description + "' ,image = '" + post.image + "' where id = " + post.id;
+                try {
+                    this.connection.query(sql, function () {
                     });
                 }
                 catch (e) {

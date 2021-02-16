@@ -23,10 +23,35 @@ var PostController = /** @class */ (function () {
                 res.sendStatus(500);
             }
         });
+        this.app.put(const_1.POST_ROUTE, verify, function (req, res) {
+            try {
+                new PostService_1.PostService().update({
+                    id: req.body.id,
+                    title: req.body.title,
+                    description: req.body.description,
+                    image: req.body.image
+                }).then(function () {
+                    res.sendStatus(200);
+                });
+            }
+            catch (e) {
+                res.sendStatus(500);
+            }
+        });
         this.app.delete(const_1.POST_ROUTE, verify, function (req, res) {
             try {
                 new PostService_1.PostService().delete(req.query.id).then(function () {
                     res.sendStatus(200);
+                });
+            }
+            catch (e) {
+                res.sendStatus(500);
+            }
+        });
+        this.app.get(const_1.POST_ROUTE, function (req, res) {
+            try {
+                new PostService_1.PostService().get().subscribe(function (posts) {
+                    res.send(posts);
                 });
             }
             catch (e) {

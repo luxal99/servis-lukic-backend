@@ -1,10 +1,9 @@
-import * as dotenv from "dotenv";
-import express = require('express');
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import {DatabaseConfig} from "./database/DatabaseConfig";
 import {PostController} from "./controllers/PostController";
 import {AuthController} from "./controllers/AuthController";
+import express = require('express');
 
 const app = express();
 

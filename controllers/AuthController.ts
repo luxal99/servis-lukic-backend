@@ -1,7 +1,6 @@
 import {AUTH_ROUTE, HTTP_STATUS_BAD_GATEWAY, HTTP_STATUS_FORBIDDEN, TOKEN_NAME} from "../const/const";
 import {AuthService} from "../service/AuthService";
 import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
 import {Request, Response} from "express";
 
 export class AuthController {
