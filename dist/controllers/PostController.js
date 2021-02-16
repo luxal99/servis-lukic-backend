@@ -23,6 +23,16 @@ var PostController = /** @class */ (function () {
                 res.sendStatus(500);
             }
         });
+        this.app.delete(const_1.POST_ROUTE, verify, function (req, res) {
+            try {
+                new PostService_1.PostService().delete(req.query.id).then(function () {
+                    res.sendStatus(200);
+                });
+            }
+            catch (e) {
+                res.sendStatus(500);
+            }
+        });
     };
     return PostController;
 }());

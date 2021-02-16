@@ -41,6 +41,21 @@ var PostService = /** @class */ (function () {
     function PostService() {
         this.connection = new DatabaseConfig_1.DatabaseConfig().getConnection();
     }
+    PostService.prototype.delete = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql;
+            return __generator(this, function (_a) {
+                sql = "delete from post where id = " + id;
+                try {
+                    this.connection.query(sql, function () { });
+                }
+                catch (e) {
+                    throw new Error(e);
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
     PostService.prototype.save = function (post) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, values;
