@@ -6,4 +6,5 @@ export const HTTP_STATUS_BAD_GATEWAY = 502;
 export const HTTP_STATUS_FORBIDDEN = 403;
 export const DENIED_MESSAGE = 'Access denied'
 
-export const TOKEN_NAME='Authorization'
+export const TOKEN_NAME = 'Authorization';
+export const PATH = '/home/luxal/';

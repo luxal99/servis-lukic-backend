@@ -5,9 +5,11 @@ import {PostController} from "./controllers/PostController";
 import {AuthController} from "./controllers/AuthController";
 import express = require('express');
 
+const fileUpload = require('express-fileupload');
 const app = express();
 
 app.use(cors());
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.listen(process.env.PORT, async () => {
     const connection = new DatabaseConfig().getConnection().connect();

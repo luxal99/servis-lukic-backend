@@ -7,4 +7,5 @@ exports.HTTP_STATUS_BAD_GATEWAY = 502;
 exports.HTTP_STATUS_FORBIDDEN = 403;
 exports.DENIED_MESSAGE = 'Access denied';
 exports.TOKEN_NAME = 'Authorization';
+exports.PATH = '/home/luxal/';
 //# sourceMappingURL=const.js.map

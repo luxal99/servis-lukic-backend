@@ -1,7 +1,8 @@
 import {Request, Response} from "express";
-import {POST_ROUTE} from "../const/const";
+import {HTTP_STATUS_BAD_GATEWAY, PATH, POST_ROUTE} from "../const/const";
 import {PostService} from "../service/PostService";
 
+const fileUpload = require('express-fileupload');
 const verify = require("../middleware/verify.middle")
 
 export class PostController {
@@ -13,13 +14,22 @@ export class PostController {
     routes() {
         this.app.post(POST_ROUTE, verify, (req: Request, res: Response) => {
             try {
-                new PostService().save({
-                    title: req.body.title,
-                    description: req.body.description,
-                    image: req.body.image
-                }).then(() => {
-                    res.sendStatus(200)
-                })
+                if (req.files) {
+                    const file = req.files.file;
+                    const uploadPath = PATH + file.name;
+
+                    file.mv(uploadPath, (err) => {
+                        if (err) res.status(HTTP_STATUS_BAD_GATEWAY).send({err});
+                    })
+
+                    new PostService().save({
+                        title: req.body.title,
+                        description: req.body.description,
+                        image: uploadPath
+                    }).then(() => {
+                        res.sendStatus(200)
+                    })
+                }
             } catch (e) {
                 res.sendStatus(500)
             }
@@ -27,14 +37,23 @@ export class PostController {
 
         this.app.put(POST_ROUTE, verify, (req: Request, res: Response) => {
             try {
-                new PostService().update({
-                    id: req.body.id,
-                    title: req.body.title,
-                    description: req.body.description,
-                    image: req.body.image
-                }).then(() => {
-                    res.sendStatus(200)
-                })
+                if (req.files) {
+                    const file = req.files.file;
+                    const uploadPath = PATH + file.name;
+
+                    file.mv(uploadPath, (err) => {
+                        if (err) res.status(HTTP_STATUS_BAD_GATEWAY).send({err});
+                    })
+
+                    new PostService().update({
+                        id: req.body.id,
+                        title: req.body.title,
+                        description: req.body.description,
+                        image: uploadPath
+                    }).then(() => {
+                        res.sendStatus(200)
+                    })
+                }
             } catch (e) {
                 res.sendStatus(500)
             }

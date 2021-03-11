@@ -42,8 +42,10 @@ var DatabaseConfig_1 = require("./database/DatabaseConfig");
 var PostController_1 = require("./controllers/PostController");
 var AuthController_1 = require("./controllers/AuthController");
 var express = require("express");
+var fileUpload = require('express-fileupload');
 var app = express();
 app.use(cors());
+app.use(fileUpload());
 app.use(bodyParser.json());
 app.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
     var connection;
