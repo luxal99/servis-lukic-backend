@@ -1,6 +1,7 @@
-import {Request, Response} from "express";
+import {Request, RequestHandler, Response} from "express";
 import {HTTP_STATUS_BAD_GATEWAY, PATH, POST_ROUTE} from "../const/const";
 import {PostService} from "../service/PostService";
+import {Post} from "../models/Post";
 
 const fileUpload = require('express-fileupload');
 const verify = require("../middleware/verify.middle")
@@ -34,6 +35,17 @@ export class PostController {
                 res.sendStatus(500)
             }
         });
+
+        this.app.get(POST_ROUTE + '/' + 'lastThree', async (req: Request, res: Response) => {
+            try {
+                await new PostService().get().subscribe((posts) => {
+                    posts = posts.slice(0, 3).reverse();
+                    res.send(posts)
+                })
+            } catch (e) {
+                res.status(HTTP_STATUS_BAD_GATEWAY).send({e});
+            }
+        })
 
         this.app.put(POST_ROUTE, verify, (req: Request, res: Response) => {
             try {
