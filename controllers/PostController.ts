@@ -26,7 +26,7 @@ export class PostController {
                     new PostService().save({
                         title: req.body.title,
                         description: req.body.description,
-                        image: uploadPath
+                        image: 'img/uploads/' + file.name
                     }).then(() => {
                         res.sendStatus(200)
                     })
@@ -39,7 +39,7 @@ export class PostController {
         this.app.get(POST_ROUTE + '/' + 'lastThree', async (req: Request, res: Response) => {
             try {
                 await new PostService().get().subscribe((posts) => {
-                    posts = posts.slice(0, 3).reverse();
+                    posts = posts.reverse().slice(0, 4);
                     res.send(posts)
                 })
             } catch (e) {

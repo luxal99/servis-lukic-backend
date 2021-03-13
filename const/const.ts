@@ -7,4 +7,4 @@ export const HTTP_STATUS_FORBIDDEN = 403;
 export const DENIED_MESSAGE = 'Access denied'
 
 export const TOKEN_NAME = 'Authorization';
-export const PATH = '/home/luxal/';
+export const PATH = '/home/luxal/PC/Project/ServisLukic/frontend/service-lukic/public/img/uploads/';
