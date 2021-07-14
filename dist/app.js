@@ -42,6 +42,7 @@ var DatabaseConfig_1 = require("./database/DatabaseConfig");
 var PostController_1 = require("./controllers/PostController");
 var AuthController_1 = require("./controllers/AuthController");
 var express = require("express");
+require('dotenv').config();
 var fileUpload = require('express-fileupload');
 var app = express();
 app.use(cors());

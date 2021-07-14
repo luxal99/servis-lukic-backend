@@ -4,7 +4,7 @@ import {DatabaseConfig} from "./database/DatabaseConfig";
 import {PostController} from "./controllers/PostController";
 import {AuthController} from "./controllers/AuthController";
 import express = require('express');
-
+require('dotenv').config();
 const fileUpload = require('express-fileupload');
 const app = express();
 
